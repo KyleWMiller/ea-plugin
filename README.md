@@ -146,6 +146,138 @@ After onboarding, `/ea:ea` becomes your interactive assistant:
 - **"open dashboard"** — Launches the web UI
 - **"who is [name]"** — Full entity recall with relation traversal
 
+## Example Workflows
+
+These examples show what a typical day looks like with the EA running. Your setup will adapt to whatever schedule and domains you configure during onboarding.
+
+### Morning Brief (auto-generated daily)
+
+The EA pulls your calendar, Loci memory, and pending items to produce a domain-organized brief:
+
+```markdown
+# Morning Brief — Monday, June 9, 2026
+
+## Work
+- **Focus: Auth service migration** — swap JWT provider, update middleware tests
+- **Sprint standup** — 10:00 AM (15 min)
+- **1:1 with Sarah Chen** — 2:00 PM
+
+## Family
+- **Anniversary dinner** — 5 days left, still no reservation. Book today
+- Pickup Liam from soccer at 4:30 PM
+
+## Learning
+- **Rust async chapter** — left off at ch. 12 last session, aim to finish ch. 13 tonight
+
+## Today's Schedule
+| Time | Block |
+|------|-------|
+| 8:00–8:30 AM  | Morning brief + inbox scan |
+| 8:30–10:00 AM | Peak focus — auth service migration |
+| 10:00–10:15 AM | Sprint standup |
+| 10:15 AM–12:00 PM | Deep work — auth migration continued |
+| 12:00–1:00 PM | Lunch |
+| 2:00–2:30 PM | 1:1 with Sarah Chen |
+| 2:30–4:15 PM | Code review + follow-ups |
+| 4:30 PM | Pickup Liam from soccer |
+| 9:00–10:30 PM | Evening — Rust async chapter 13 |
+
+## Needs Attention
+- **Anniversary dinner** — book reservation today
+```
+
+Briefs are generated headlessly via `claude -p` and saved to `~/.ea/briefs/`. The dashboard renders them with full markdown support.
+
+### Weekly Plan (auto-generated Monday mornings)
+
+Reviews the previous week across all domains, flags slipping priorities, and sets the plan:
+
+```markdown
+# Weekly Plan — June 9–15, 2026
+
+## Last Week in Review
+
+### Work — ON TRACK
+Auth migration Phase 1 merged Friday. No blockers from code review.
+
+### Learning — NEEDS FOCUS
+> **Accountability note:** Rust book was last week's #1 learning priority but
+> only 1 chapter completed. Side project debugging ate into study time.
+> This week: chapters 13–15, no detours.
+
+| # | Priority | Est. Hours |
+|---|----------|-----------|
+| 1 | Rust async — chapters 13, 14, 15 | 4h |
+| 2 | Review Sarah's RFC on caching layer | 1h |
+
+Side project is feature-frozen until Rust chapters are done.
+**Do not touch it this week** unless something breaks.
+```
+
+The EA tracks carry-forward items week to week and calls out when priorities slip — it holds you accountable.
+
+### Brain Dump (nightly)
+
+Throughout the day, jot thoughts into your brain dump file (plain text, any format):
+
+```
+Sarah mentioned the caching RFC deadline moved to Friday
+Need to renew car registration before the 20th
+Idea: use Loci entity relations for dependency mapping at work
+Started reading "Designing Data-Intensive Applications"
+```
+
+The EA reads the file nightly, classifies each item into the right Loci memory type (entity, episodic, semantic, procedural), checks for duplicates, stores relations, and clears the file. Next morning's brief incorporates everything automatically.
+
+### Interactive Session
+
+```
+You: schedule dentist appointment next Tuesday at 2pm
+EA:  Created "Dentist appointment" on Tuesday June 10 at 2:00 PM (1 hour).
+     Stored as episodic memory.
+
+You: plan my evening
+EA:  Based on your priorities and today's progress:
+     9:00–10:15 PM — Rust async ch. 13 (continues from last session)
+     10:15–10:30 PM — Review tomorrow's calendar, brain dump
+
+You: who is Sarah Chen
+EA:  Sarah Chen — Senior engineer on your team. Owns the caching layer.
+     Writing an RFC on cache invalidation (due Friday). Weekly 1:1 on Mondays
+     at 2 PM. Prefers Slack for async, quick calls for design discussions.
+     Related: work domain, auth-migration project.
+
+You: switch to learning mode
+EA:  You're in learning mode. Last session you finished Rust async ch. 12.
+     This week's goal: chapters 13–15.
+     Break reminders active every 45 minutes.
+```
+
+### EOD Wrap (auto-generated at end of work)
+
+Compares your morning plan against what actually happened:
+
+```markdown
+# EOD Wrap — June 9, 2026
+
+## Planned vs Actual
+| Planned | Status |
+|---------|--------|
+| Auth migration deep work | Done — 3.5 hours, middleware tests passing |
+| Sprint standup | Done |
+| 1:1 with Sarah Chen | Done — discussed caching RFC timeline |
+| Book anniversary dinner | **Not done** — carry forward |
+| Rust ch. 13 evening session | Done — finished chapter, started ch. 14 |
+
+## Carry Forward
+- Book anniversary dinner (2nd day carried — escalating)
+
+## Tomorrow's Top 3
+1. Auth migration — integration tests for the new JWT provider
+2. Book anniversary dinner (seriously this time)
+3. Review Sarah's caching RFC draft
+```
+
 ## License
 
 MIT
