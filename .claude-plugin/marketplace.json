@@ -1,0 +1,23 @@
+{
+  "name": "ea-plugin",
+  "owner": {
+    "name": "Kyle Miller",
+    "email": "kyle@kylemiller.ai"
+  },
+  "metadata": {
+    "description": "Personal executive assistant plugin for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "ea",
+      "source": ".",
+      "description": "Personal executive assistant with Loci memory, daily briefs, kanban dashboard, and cron automation",
+      "version": "1.0.0",
+      "author": {
+        "name": "Kyle Miller"
+      },
+      "license": "MIT",
+      "keywords": ["executive-assistant", "productivity", "loci", "kanban", "calendar"]
+    }
+  ]
+}

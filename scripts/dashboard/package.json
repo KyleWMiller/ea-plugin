@@ -1,0 +1,26 @@
+{
+  "name": "ea-dashboard",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "bun run server.ts",
+    "start": "vite build && bun run server.ts"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@types/bun": "latest",
+    "svelte": "^5.53.12",
+    "svelte-dnd-action": "^0.9.69",
+    "vite": "^8.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "hono": "^4.12.8",
+    "marked": "^17.0.4"
+  }
+}

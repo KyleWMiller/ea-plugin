@@ -1,0 +1,20 @@
+{
+  "name": "ea",
+  "version": "1.0.0",
+  "description": "Personal executive assistant with Loci memory, daily briefs, kanban dashboard, and cron automation",
+  "author": {
+    "name": "Kyle Miller",
+    "url": "https://github.com/KyleWMiller"
+  },
+  "license": "MIT",
+  "keywords": [
+    "executive-assistant",
+    "productivity",
+    "loci",
+    "kanban",
+    "calendar",
+    "scheduling",
+    "daily-briefs"
+  ],
+  "hooks": "./hooks/hooks.json"
+}
