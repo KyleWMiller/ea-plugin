@@ -71,13 +71,50 @@
       <!-- Stats -->
       <div class="glass-panel stats-panel">
         <h3>Memory Stats</h3>
-        <div class="stats-grid">
-          {#each Object.entries(lociStats) as [key, val]}
-            <div class="stat">
-              <span class="stat-value">{formatStat(key, val)}</span>
-              <span class="stat-label">{key}</span>
-            </div>
-          {/each}
+        <!-- Overview row: total, size -->
+        <div class="stats-row overview-row">
+          <div class="stat stat-total">
+            <span class="stat-value">{lociStats['total memories'] ?? '—'}</span>
+            <span class="stat-label">total</span>
+          </div>
+          <div class="stat stat-size">
+            <span class="stat-value">{formatBytes(lociStats['database size'] ?? 0)}</span>
+            <span class="stat-label">size</span>
+          </div>
+        </div>
+
+        <!-- Memory types -->
+        <div class="stats-section-label">By Type</div>
+        <div class="stats-row types-row">
+          <div class="stat stat-episodic">
+            <span class="stat-value">{lociStats['episodic'] ?? 0}</span>
+            <span class="stat-label">episodic</span>
+          </div>
+          <div class="stat stat-semantic">
+            <span class="stat-value">{lociStats['semantic'] ?? 0}</span>
+            <span class="stat-label">semantic</span>
+          </div>
+          <div class="stat stat-procedural">
+            <span class="stat-value">{lociStats['procedural'] ?? 0}</span>
+            <span class="stat-label">procedural</span>
+          </div>
+          <div class="stat stat-entity">
+            <span class="stat-value">{lociStats['entity'] ?? 0}</span>
+            <span class="stat-label">entity</span>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="stats-section-label">Status</div>
+        <div class="stats-row status-row">
+          <div class="stat stat-active">
+            <span class="stat-value">{lociStats['active'] ?? 0}</span>
+            <span class="stat-label">active</span>
+          </div>
+          <div class="stat stat-superseded">
+            <span class="stat-value">{lociStats['superseded'] ?? 0}</span>
+            <span class="stat-label">superseded</span>
+          </div>
         </div>
       </div>
 
@@ -190,33 +227,74 @@
     color: #e6edf3;
   }
 
-  .stats-grid {
+  .stats-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .overview-row { grid-template-columns: 1fr 1fr; }
+  .types-row { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .status-row { grid-template-columns: 1fr 1fr; margin-bottom: 0; }
+
+  .stats-section-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.25);
+    margin-bottom: 0.4rem;
   }
 
   .stat {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.75rem;
+    padding: 0.6rem 0.25rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
+    border-top: 2px solid transparent;
   }
 
   .stat-value {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #58a6ff;
   }
 
   .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: rgba(255, 255, 255, 0.4);
     text-transform: capitalize;
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
   }
+
+  /* Overview colors */
+  .stat-total { border-top-color: #58a6ff; }
+  .stat-total .stat-value { color: #58a6ff; }
+
+  .stat-active { border-top-color: #3fb950; }
+  .stat-active .stat-value { color: #3fb950; }
+
+  .stat-size { border-top-color: #d29922; }
+  .stat-size .stat-value { color: #d29922; }
+
+  /* Type colors */
+  .stat-episodic { border-top-color: #f0883e; }
+  .stat-episodic .stat-value { color: #f0883e; }
+
+  .stat-semantic { border-top-color: #bc8cff; }
+  .stat-semantic .stat-value { color: #bc8cff; }
+
+  .stat-procedural { border-top-color: #58a6ff; }
+  .stat-procedural .stat-value { color: #58a6ff; }
+
+  .stat-entity { border-top-color: #39d353; }
+  .stat-entity .stat-value { color: #39d353; }
+
+  /* Status colors */
+  .stat-superseded { border-top-color: #f85149; }
+  .stat-superseded .stat-value { color: #f85149; }
 
   .recent-list {
     list-style: none;

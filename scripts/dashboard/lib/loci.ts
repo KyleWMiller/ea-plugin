@@ -100,10 +100,28 @@ export async function getLociStats(): Promise<Record<string, number>> {
     await proc.exited;
 
     const stats: Record<string, number> = {};
+    // Skip date/timestamp lines and section headers
+    const skipKeys = new Set(['oldest memory', 'newest memory']);
+    const skipLines = new Set(['memory statistics', 'by type:', 'by scope:']);
+
     for (const line of output.split('\n')) {
-      const match = line.match(/(\w[\w\s]+):\s*(\d+)/);
-      if (match) {
-        stats[match[1]!.trim().toLowerCase()] = parseInt(match[2]!, 10);
+      const trimmed = line.trim().toLowerCase();
+      if (!trimmed || trimmed.startsWith('=') || skipLines.has(trimmed)) continue;
+
+      // Match "key: number" lines (e.g. "Total memories:      107", "Database size: 1847296 bytes")
+      const colonMatch = line.match(/^\s*(.+?):\s+(\d+)/);
+      if (colonMatch) {
+        const key = colonMatch[1]!.trim().toLowerCase();
+        if (!skipKeys.has(key)) {
+          stats[key] = parseInt(colonMatch[2]!, 10);
+        }
+        continue;
+      }
+
+      // Match non-colon lines like "  episodic     56"
+      const spaceMatch = line.match(/^\s+(\w+)\s+(\d+)\s*$/);
+      if (spaceMatch) {
+        stats[spaceMatch[1]!.toLowerCase()] = parseInt(spaceMatch[2]!, 10);
       }
     }
     return stats;
