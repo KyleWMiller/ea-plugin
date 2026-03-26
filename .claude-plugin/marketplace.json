@@ -10,14 +10,7 @@
   "plugins": [
     {
       "name": "ea",
-      "source": ".",
-      "description": "Personal executive assistant with Loci memory, daily briefs, kanban dashboard, and cron automation",
-      "version": "1.0.0",
-      "author": {
-        "name": "Kyle Miller"
-      },
-      "license": "MIT",
-      "keywords": ["executive-assistant", "productivity", "loci", "kanban", "calendar"]
+      "source": "."
     }
   ]
 }
