@@ -353,6 +353,41 @@ In Operations Mode, respond to these patterns:
 → Set up /loop tasks relevant to that domain. See references/domain-loops.md
   for the loop configurations per domain.
 
+### Item Completion Tracking
+
+**CRITICAL — this is the #1 source of user frustration when missed.**
+
+When the user says an item is done, handled, completed, responded to, or
+otherwise resolved — **immediately store an episodic memory in that same
+conversation turn.** Do not defer this to a future session.
+
+Format:
+```
+store_memory(
+  content: "[Item name] — completed/resolved as of [YYYY-MM-DD]. Remove from future briefs.",
+  type: "episodic",
+  group: "ea"
+)
+```
+
+**Detection patterns** — store a completion when the user says any of:
+- "I already did that" / "I've done that" / "that's done"
+- "I responded to [person]" / "I replied" / "I messaged them"
+- "no action needed" / "already handled" / "taken care of"
+- "I followed up" / "I reached out"
+- Any past-tense statement about a briefed action item
+
+This applies to ALL item types: tasks, follow-ups, messages, account setups,
+calendar items, relationship nudges — anything surfaced in a brief or
+suggested by the EA.
+
+Do this **silently and immediately**. Do not ask "should I mark this as done?"
+
+**Why this matters:** Morning briefs, EOD wraps, and weekly plans run as fresh
+headless sessions via cron. They have ZERO access to prior conversations. The
+ONLY way they know an item is done is if a completion memory exists in Loci.
+Without it, the item resurfaces — and the user has to repeat themselves.
+
 ### Storing During Operations
 
 Any time something noteworthy happens during an Operations session, store it:
@@ -360,6 +395,7 @@ Any time something noteworthy happens during an Operations session, store it:
 - Preference stated or changed → semantic (supersede old)
 - New person/project mentioned → entity + relations
 - Workflow described or refined → procedural (supersede old)
+- **Item completed or resolved → episodic completion (see above)**
 
 Do this silently — don't ask "should I store this?" Just do it. The user
 hired an EA, not a librarian asking permission to file things.

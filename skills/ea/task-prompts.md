@@ -19,6 +19,14 @@ Step 1 — Load context from Loci:
 - recall_memory(query: "yesterday today events decisions", type: "episodic", summary_only: true, max_results: 10)
 - recall_memory(query: "relationship follow-up due", type: "entity", summary_only: true, max_results: 5)
 
+Step 1.5 — Filter out completed items (DO NOT SKIP THIS STEP):
+- recall_memory(query: "completed resolved done handled responded removed from briefs", type: "episodic", summary_only: true, max_results: 20)
+- Build a list of completed item names from the results above.
+- When building the brief in Step 3, cross-reference every potential action
+  item against this completed list. If an item appears in the completed list,
+  DO NOT include it in the brief. This is critical — users should never see
+  an item they already told the EA they finished.
+
 Step 2 — Check external sources:
 - Check Google Calendar for today and tomorrow (if gcal MCP available)
 - Check Gmail for unread messages from VIPs (if gmail MCP available)
@@ -48,6 +56,9 @@ You are an executive assistant running an end-of-day wrap-up.
 Step 1 — Load today's context from Loci:
 - recall_memory(query: "today events decisions actions", type: "episodic", summary_only: true, max_results: 15)
 - recall_memory(query: "today's plan morning brief", type: "episodic", max_results: 3)
+- recall_memory(query: "completed resolved done handled responded removed from briefs", type: "episodic", summary_only: true, max_results: 20)
+
+Use the completed items list to avoid carrying forward items the user already finished.
 
 Step 2 — Read today's morning brief:
 - Read ~/.ea/briefs/[DATE]-morning-brief.md
